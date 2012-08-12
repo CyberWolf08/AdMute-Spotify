@@ -28,8 +28,12 @@ const wchar_t *GetNowPlaying(HWND SpotifyHandle)
 	SpotifyTitle = (wchar_t *) malloc(bufferSize * sizeof(wchar_t));
 	GetWindowText(SpotifyHandle, SpotifyTitle, bufferSize);
 
-	// Eliminate the "Spotify - " prefix
-	SpotifyTitle = SpotifyTitle + 10;
+	// If nothing is playing the title will be "Spotify". In that case return "Nothing Playing"
+	if(!wcscmp(L"Spotify", SpotifyTitle)) 
+		wcscpy(SpotifyTitle, L"Nothing Playing");
+	else
+		// Eliminate the "Spotify - " prefix
+		SpotifyTitle = SpotifyTitle + 10;
 
 	return SpotifyTitle;
 
