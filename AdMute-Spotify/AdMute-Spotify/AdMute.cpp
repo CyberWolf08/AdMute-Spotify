@@ -28,6 +28,11 @@ int main(int argc, char **argv) {
 
 	CurrentTrack = (wchar_t *)malloc(256 * sizeof(wchar_t));
 
+	if(CurrentTrack == NULL) {
+		puts("Error allocating space for storing some small stuff");
+		return 1;
+	}
+
 	// begin a infinite loop. This will be dealt with later
 	while(1)
 	{
@@ -88,7 +93,7 @@ int InitSettings(wchar_t AdList[20][256]) {
 
 	// there are no more than 20 ads usually 
 	int i = 0;
-	while (fgetws ( AdList[i], 512, SettingsFILE ) != NULL)
+	while (fgetws ( AdList[i], 255, SettingsFILE ) != NULL)
 	{
 		// remove the newline char
 		AdList[i][wcslen(AdList[i]) - 1] = L'\0';
